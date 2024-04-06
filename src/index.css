@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.global-content {
+  @apply flex items-center justify-center;
+}
+
+.main-content {
+  @apply flex items-center w-11/12;
+}
+
+.menu-svg {
+  @apply w-4 fill-deep-blue;
+}
+
+.active {
+  @apply text-deep-blue;
+}
