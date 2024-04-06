@@ -1,0 +1,68 @@
+openapi: 3.0.0
+info:
+  title: Login service api
+  version: 1.0.0
+paths:
+  /inventory:
+    get:
+      summary: Get Inventory metadata for account
+      description: Retrieve a list of inventory items
+      parameters:
+        - name: account_number
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: parentId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InventoryResponse'            
+security:
+  - oAuth2: []
+components:
+  securitySchemes:
+    oAuth2:
+      type: "oauth2"
+      flows:
+        implicit:
+          authorizationUrl: "http://localhost:7656"
+          scopes:
+            openapi: "openapi"
+            user_management_profile: "user_management_profile"
+  schemas:
+    InventoryResponse:
+      type: object
+      required:
+        - id
+        - account_number
+        - type
+        - label
+      properties:
+        id:
+          type: string
+        account_number:
+          type: string
+        parentId:
+          type: string
+        type:
+          type: string
+        label:
+          type: string  
+        secondaryLabel:
+          type: string
+        childrenCount:
+          type: number
+        inventoryItems:
+          type: array
+          items:
+            $ref: '#/components/schemas/InventoryResponse'
